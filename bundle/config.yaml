@@ -24,10 +24,15 @@ host_network: true
 init: false
 startup: services
 boot: auto
-# "Open Web UI" button -> the EZY DNS companion UI on its default port. Under
-# host networking the port is reached directly on the host; no ports mapping is
-# declared (it would only be cosmetic and ask for the ports a second time).
-webui: "http://[HOST]:5555/"
+# "Open Web UI" button -> the EZY DNS companion UI. Home Assistant requires the
+# webui link to use a [PORT:] reference, so the EZY DNS port is declared below.
+# Only this one port is declared, so the Network panel stays to a single line.
+# Technitium's own console port is set in the options, not here.
+ports:
+  "5555/tcp": 5555
+ports_description:
+  "5555/tcp": "EZY DNS web UI"
+webui: "http://[HOST]:[PORT:5555]/"
 # Persist Technitium's config/zones/apps (incl. the query-logs DB) in a
 # user-browsable add-on config dir, and expose HA's certs read-only for
 # optional DoH/DoT. EZY DNS's own state lives under the persistent /data volume.
