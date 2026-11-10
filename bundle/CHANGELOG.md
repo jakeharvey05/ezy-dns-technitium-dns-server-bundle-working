@@ -5,6 +5,21 @@ build (`ghcr.io/jakeharvey05/ezy-dns:works`); the daily update workflow bumps
 this add-on whenever that image changes so Home Assistant offers an update. The
 Technitium DNS Server version is pinned in the Dockerfile.
 
+## 0.2.1
+
+- EZY DNS can now bind any port, including low ports such as 80: the Python
+  interpreter is granted `cap_net_bind_service`, so the non-root `ezy` user can
+  bind privileged ports without running as root. This fixes the crash loop when
+  `ezy_dns_port` was set to 80.
+- Removed the ports mapping and the Open Web UI button. Under host networking the
+  EZY DNS UI is reached directly on the host; `ezy_dns_port` (default 5555) and
+  `ezy_dns_bind_address` are the only controls, on any port and bind IP per site.
+
+## 0.2.0
+
+- Removed the `technitium_public_url` option; EZY DNS 0.48 serves the Technitium
+  logo locally, so the browser-facing URL is no longer needed.
+
 ## 0.1.0
 
 **Initial release.**

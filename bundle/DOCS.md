@@ -40,10 +40,11 @@ The add-on then appears in the store and can be installed.
 4. In the add-on **Configuration** tab, paste the token into
    `technitium_api_token` and save, then restart the add-on. Until a token is
    set, EZY DNS runs with limited data (no API-backed views).
-5. Open the **EZY DNS UI** (the "Open Web UI" button, or
-   `http://<ha-ip>:5555/`). On first run it shows a **create-admin page**: set
-   and confirm a password to create the first EZY DNS admin account. After that
-   it behaves normally with its own login.
+5. Open the **EZY DNS UI** by browsing to `http://<host-ip>:<ezy_dns_port>`
+   (default `http://<host-ip>:5555/`). There is no "Open Web UI" button; under
+   host networking you reach the UI directly on the host. On first run it shows
+   a **create-admin page**: set and confirm a password to create the first EZY
+   DNS admin account. After that it behaves normally with its own login.
 
 ### Query logs page
 
@@ -63,7 +64,7 @@ of EZY DNS works.
 | `web_service_https_port` | `53443` | Technitium HTTPS console port. |
 | `web_service_enable_https` | `false` | Serve the console over HTTPS too. |
 | `ezy_dns_bind_address` | `0.0.0.0` | Address the EZY DNS UI listens on. Set a LAN IP to publish it only there. |
-| `ezy_dns_port` | `5555` | Port for the EZY DNS UI. |
+| `ezy_dns_port` | `5555` | Port for the EZY DNS UI. May be any port, including low ports such as 80, on any bind address, per site. There is no Open Web UI button; browse to the host IP and this port directly. |
 | `technitium_api_token` | *(empty)* | API token EZY DNS uses to call Technitium. |
 
 Host networking is required (a DNS server must bind port 53), so Home Assistant

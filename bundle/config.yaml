@@ -2,7 +2,7 @@
 # Add-on version. Supervisor pulls the matching image tag, and bumping this is
 # what makes Home Assistant show "Update". It is kept in step with the private
 # build repo, which publishes the image.
-version: "0.2.0"
+version: "0.2.1"
 name: EZY DNS Technitium DNS Server Bundle
 slug: ezy_dns_technitium_bundle
 description: Technitium DNS Server bundled with the EZY DNS web UI in one add-on.
@@ -24,15 +24,11 @@ host_network: true
 init: false
 startup: services
 boot: auto
-# "Open Web UI" button -> the EZY DNS companion UI. Home Assistant requires the
-# webui link to use a [PORT:] reference, so the EZY DNS port is declared below.
-# Only this one port is declared, so the Network panel stays to a single line.
-# Technitium's own console port is set in the options, not here.
-ports:
-  "5555/tcp": 5555
-ports_description:
-  "5555/tcp": "EZY DNS web UI"
-webui: "http://[HOST]:[PORT:5555]/"
+# No ports mapping and no "Open Web UI" button: under host networking the EZY DNS
+# UI is reached directly on the host at the chosen bind address and port. The
+# port is controlled solely by the ezy_dns_port option (ezy_dns_bind_address
+# sets the IP) and may be any port, including low ports such as 80 (the Python
+# interpreter is granted cap_net_bind_service in the Dockerfile).
 # Persist Technitium's config/zones/apps (incl. the query-logs DB) in a
 # user-browsable add-on config dir, and expose HA's certs read-only for
 # optional DoH/DoT. EZY DNS's own state lives under the persistent /data volume.

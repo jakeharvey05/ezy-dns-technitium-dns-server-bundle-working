@@ -23,9 +23,9 @@ configuration:
   ezy_dns_port:
     name: EZY DNS port
     description: >-
-      Port for the EZY DNS web UI. If you change it, the "Open Web UI" button
-      still points at the default port (host networking means Home Assistant
-      cannot remap it); browse to the chosen port directly.
+      Port for the EZY DNS web UI. May be any port, including low ports such as
+      80, on any bind address, per site. There is no Open Web UI button; browse
+      to the host IP and this port directly.
   technitium_api_token:
     name: Technitium API token
     description: >-
