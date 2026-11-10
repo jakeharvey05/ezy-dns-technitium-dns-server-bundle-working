@@ -1,0 +1,39 @@
+---
+configuration:
+  web_service_local_addresses:
+    name: Technitium console bind addresses
+    description: >-
+      Comma-separated addresses the Technitium web console listens on.
+      "0.0.0.0,::" listens on every interface; set a specific LAN IP to publish
+      the console only there.
+  web_service_http_port:
+    name: Technitium console HTTP port
+    description: Port for Technitium's HTTP web console.
+  web_service_https_port:
+    name: Technitium console HTTPS port
+    description: Port for Technitium's HTTPS web console (when HTTPS is enabled).
+  web_service_enable_https:
+    name: Enable Technitium console HTTPS
+    description: Serve the Technitium web console over HTTPS as well as HTTP.
+  ezy_dns_bind_address:
+    name: EZY DNS bind address
+    description: >-
+      Address the EZY DNS web UI listens on. "0.0.0.0" listens on every
+      interface; set a specific LAN IP to publish the UI only there.
+  ezy_dns_port:
+    name: EZY DNS port
+    description: >-
+      Port for the EZY DNS web UI. If you change it, the "Open Web UI" button
+      still points at the default port (host networking means Home Assistant
+      cannot remap it); browse to the chosen port directly.
+  technitium_api_token:
+    name: Technitium API token
+    description: >-
+      API token EZY DNS uses to talk to Technitium. Create it in the Technitium
+      console (Administration -> Sessions / API tokens), paste it here, then
+      restart the add-on. EZY DNS runs with limited data until this is set.
+  technitium_public_url:
+    name: Technitium public URL (optional)
+    description: >-
+      Browser-facing Technitium URL, used only for the Technitium logo image in
+      the EZY DNS UI. Leave blank unless the logo fails to load.

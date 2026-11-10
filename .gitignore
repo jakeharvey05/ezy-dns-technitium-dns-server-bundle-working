@@ -1,0 +1,9 @@
+# OS cruft
+.DS_Store
+*.log
+*.tmp
+
+# Never commit secrets (there are none in this repo by design)
+*.env
+secret_key
+*.db

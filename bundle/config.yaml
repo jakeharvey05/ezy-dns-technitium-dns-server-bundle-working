@@ -1,0 +1,65 @@
+---
+# Add-on version. Supervisor pulls the matching image tag, and bumping this is
+# what makes Home Assistant show "Update". It is kept in step with the private
+# build repo, which publishes the image.
+version: "0.1.0"
+name: EZY DNS Technitium DNS Server Bundle
+slug: ezy_dns_technitium_bundle
+description: Technitium DNS Server bundled with the EZY DNS web UI in one add-on.
+url: https://github.com/jakeharvey05/ezy-dns-technitium-dns-server-bundle-working
+# Pre-built, PRIVATE image (built by the private build repo). Supervisor pulls
+# `:<version>` per the `version:` field above. The HA box needs a read-only
+# GHCR credential to pull it (see DOCS.md).
+image: "ghcr.io/jakeharvey05/{arch}-addon-ezy-dns-technitium-dns-server-bundle"
+# Matches the EZY DNS image (the public Technitium image is also multi-arch).
+arch:
+  - amd64
+  - aarch64
+# A DNS server must bind privileged port 53 on the host, so host networking is
+# required (same as the public add-on). With host networking HA cannot remap
+# ports: whatever each service binds is exposed on the host directly.
+host_network: true
+# We supply our own init (s6-overlay inside the image), so do not let Supervisor
+# wrap the container in its own init.
+init: false
+startup: services
+boot: auto
+# "Open Web UI" button -> the EZY DNS companion UI on its default port.
+webui: "http://[HOST]:[PORT:5555]/"
+# Declared so webui's [PORT:5555] resolves and the ports show in the UI. Under
+# host networking these are not remappable; they document what is exposed.
+ports:
+  "5380/tcp": 5380
+  "5555/tcp": 5555
+ports_description:
+  "5380/tcp": "Technitium web console"
+  "5555/tcp": "EZY DNS web UI"
+# Persist Technitium's config/zones/apps (incl. the query-logs DB) in a
+# user-browsable add-on config dir, and expose HA's certs read-only for
+# optional DoH/DoT. EZY DNS's own state lives under the persistent /data volume.
+map:
+  - type: addon_config
+    read_only: false
+  - type: ssl
+    read_only: true
+options:
+  # --- Technitium web console (same options as the public add-on) ---
+  web_service_local_addresses: "0.0.0.0,::"
+  web_service_http_port: 5380
+  web_service_https_port: 53443
+  web_service_enable_https: false
+  # --- EZY DNS web UI exposure ---
+  ezy_dns_bind_address: "0.0.0.0"
+  ezy_dns_port: 5555
+  # --- EZY DNS -> Technitium API ---
+  technitium_api_token: ""
+  technitium_public_url: ""
+schema:
+  web_service_local_addresses: "str"
+  web_service_http_port: "port"
+  web_service_https_port: "port"
+  web_service_enable_https: "bool"
+  ezy_dns_bind_address: "str"
+  ezy_dns_port: "port"
+  technitium_api_token: "password"
+  technitium_public_url: "str?"
