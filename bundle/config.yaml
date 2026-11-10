@@ -2,7 +2,7 @@
 # Add-on version. Supervisor pulls the matching image tag, and bumping this is
 # what makes Home Assistant show "Update". It is kept in step with the private
 # build repo, which publishes the image.
-version: "0.1.0"
+version: "0.2.0"
 name: EZY DNS Technitium DNS Server Bundle
 slug: ezy_dns_technitium_bundle
 description: Technitium DNS Server bundled with the EZY DNS web UI in one add-on.
@@ -24,16 +24,10 @@ host_network: true
 init: false
 startup: services
 boot: auto
-# "Open Web UI" button -> the EZY DNS companion UI on its default port.
-webui: "http://[HOST]:[PORT:5555]/"
-# Declared so webui's [PORT:5555] resolves and the ports show in the UI. Under
-# host networking these are not remappable; they document what is exposed.
-ports:
-  "5380/tcp": 5380
-  "5555/tcp": 5555
-ports_description:
-  "5380/tcp": "Technitium web console"
-  "5555/tcp": "EZY DNS web UI"
+# "Open Web UI" button -> the EZY DNS companion UI on its default port. Under
+# host networking the port is reached directly on the host; no ports mapping is
+# declared (it would only be cosmetic and ask for the ports a second time).
+webui: "http://[HOST]:5555/"
 # Persist Technitium's config/zones/apps (incl. the query-logs DB) in a
 # user-browsable add-on config dir, and expose HA's certs read-only for
 # optional DoH/DoT. EZY DNS's own state lives under the persistent /data volume.
@@ -53,7 +47,6 @@ options:
   ezy_dns_port: 5555
   # --- EZY DNS -> Technitium API ---
   technitium_api_token: ""
-  technitium_public_url: ""
 schema:
   web_service_local_addresses: "str"
   web_service_http_port: "port"
@@ -62,4 +55,3 @@ schema:
   ezy_dns_bind_address: "str"
   ezy_dns_port: "port"
   technitium_api_token: "password"
-  technitium_public_url: "str?"

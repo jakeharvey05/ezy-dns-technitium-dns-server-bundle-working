@@ -32,8 +32,3 @@ configuration:
       API token EZY DNS uses to talk to Technitium. Create it in the Technitium
       console (Administration -> Sessions / API tokens), paste it here, then
       restart the add-on. EZY DNS runs with limited data until this is set.
-  technitium_public_url:
-    name: Technitium public URL (optional)
-    description: >-
-      Browser-facing Technitium URL, used only for the Technitium logo image in
-      the EZY DNS UI. Leave blank unless the logo fails to load.

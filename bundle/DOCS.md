@@ -65,7 +65,6 @@ of EZY DNS works.
 | `ezy_dns_bind_address` | `0.0.0.0` | Address the EZY DNS UI listens on. Set a LAN IP to publish it only there. |
 | `ezy_dns_port` | `5555` | Port for the EZY DNS UI. |
 | `technitium_api_token` | *(empty)* | API token EZY DNS uses to call Technitium. |
-| `technitium_public_url` | *(empty)* | Optional browser-facing Technitium URL, used only for the logo image. |
 
 Host networking is required (a DNS server must bind port 53), so Home Assistant
 cannot remap ports: whatever each service binds is exposed on the host
