@@ -2,7 +2,7 @@
 # Add-on version. Supervisor pulls the matching image tag, and bumping this is
 # what makes Home Assistant show "Update". It is kept in step with the private
 # build repo, which publishes the image.
-version: "0.2.1"
+version: "0.2.2"
 name: EZY DNS Technitium DNS Server Bundle
 slug: ezy_dns_technitium_bundle
 description: Technitium DNS Server bundled with the EZY DNS web UI in one add-on.
